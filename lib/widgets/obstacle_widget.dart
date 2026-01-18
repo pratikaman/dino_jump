@@ -123,44 +123,55 @@ class ObstaclePainter extends CustomPainter {
   }
 
   void _drawBird(Canvas canvas, Size size, Paint paint) {
-    // Body
-    canvas.drawOval(
-      Rect.fromLTWH(
-          size.width * 0.1, size.height * 0.35, size.width * 0.7, size.height * 0.35),
-      paint,
-    );
+    final wingUp = variant % 2 == 0;
 
-    // Head
-    canvas.drawOval(
-      Rect.fromLTWH(
-          size.width * 0.6, size.height * 0.25, size.width * 0.3, size.height * 0.3),
-      paint,
-    );
+    // Main body - angular pterodactyl shape
+    final bodyPath = Path();
+    bodyPath.moveTo(size.width * 0.0, size.height * 0.5);
+    bodyPath.lineTo(size.width * 0.15, size.height * 0.4);
+    bodyPath.lineTo(size.width * 0.5, size.height * 0.38);
+    bodyPath.lineTo(size.width * 0.6, size.height * 0.42);
+    bodyPath.lineTo(size.width * 0.5, size.height * 0.55);
+    bodyPath.lineTo(size.width * 0.15, size.height * 0.55);
+    bodyPath.close();
+    canvas.drawPath(bodyPath, paint);
 
-    // Beak
+    // Head with crest
+    final headPath = Path();
+    headPath.moveTo(size.width * 0.5, size.height * 0.38);
+    headPath.lineTo(size.width * 0.55, size.height * 0.25);
+    headPath.lineTo(size.width * 0.7, size.height * 0.2);
+    headPath.lineTo(size.width * 0.75, size.height * 0.35);
+    headPath.lineTo(size.width * 0.7, size.height * 0.45);
+    headPath.lineTo(size.width * 0.6, size.height * 0.42);
+    headPath.close();
+    canvas.drawPath(headPath, paint);
+
+    // Long pointed beak
     final beakPath = Path();
-    beakPath.moveTo(size.width * 0.9, size.height * 0.4);
-    beakPath.lineTo(size.width, size.height * 0.45);
-    beakPath.lineTo(size.width * 0.9, size.height * 0.5);
+    beakPath.moveTo(size.width * 0.75, size.height * 0.35);
+    beakPath.lineTo(size.width, size.height * 0.4);
+    beakPath.lineTo(size.width * 0.75, size.height * 0.45);
     beakPath.close();
     canvas.drawPath(beakPath, paint);
 
-    // Wing (animated based on variant as a simple toggle)
-    final wingUp = variant % 2 == 0;
+    // Wing - pterodactyl membrane style
     if (wingUp) {
-      // Wing up
       final wingPath = Path();
-      wingPath.moveTo(size.width * 0.2, size.height * 0.35);
-      wingPath.lineTo(size.width * 0.4, 0);
-      wingPath.lineTo(size.width * 0.5, size.height * 0.35);
+      wingPath.moveTo(size.width * 0.1, size.height * 0.4);
+      wingPath.lineTo(size.width * 0.15, size.height * 0.15);
+      wingPath.lineTo(size.width * 0.35, size.height * 0.0);
+      wingPath.lineTo(size.width * 0.45, size.height * 0.1);
+      wingPath.lineTo(size.width * 0.4, size.height * 0.38);
       wingPath.close();
       canvas.drawPath(wingPath, paint);
     } else {
-      // Wing down
       final wingPath = Path();
-      wingPath.moveTo(size.width * 0.2, size.height * 0.55);
-      wingPath.lineTo(size.width * 0.4, size.height);
-      wingPath.lineTo(size.width * 0.5, size.height * 0.55);
+      wingPath.moveTo(size.width * 0.1, size.height * 0.55);
+      wingPath.lineTo(size.width * 0.15, size.height * 0.75);
+      wingPath.lineTo(size.width * 0.35, size.height * 0.95);
+      wingPath.lineTo(size.width * 0.45, size.height * 0.85);
+      wingPath.lineTo(size.width * 0.4, size.height * 0.55);
       wingPath.close();
       canvas.drawPath(wingPath, paint);
     }
@@ -168,9 +179,17 @@ class ObstaclePainter extends CustomPainter {
     // Eye
     final eyePaint = Paint()..color = Colors.white;
     canvas.drawCircle(
-      Offset(size.width * 0.75, size.height * 0.35),
-      size.width * 0.05,
+      Offset(size.width * 0.65, size.height * 0.32),
+      size.width * 0.04,
       eyePaint,
+    );
+
+    // Pupil
+    final pupilPaint = Paint()..color = const Color(0xFF535353);
+    canvas.drawCircle(
+      Offset(size.width * 0.66, size.height * 0.32),
+      size.width * 0.02,
+      pupilPaint,
     );
   }
 

@@ -15,9 +15,9 @@ class GameState {
   final GameStatus status;
   final double groundOffset;
 
-  static const double initialSpeed = 6.0;
-  static const double maxSpeed = 15.0;
-  static const double speedIncrement = 0.001;
+  static const double initialSpeed = 4.0;
+  static const double maxSpeed = 10.0;
+  static const double speedIncrement = 0.0008;
   static const double minObstacleGap = 300.0;
 
   const GameState({
